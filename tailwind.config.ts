@@ -9,8 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+        ink: "var(--ink)",
+        "ink-soft": "var(--ink-soft)",
+        paper: "var(--paper)",
+        "paper-deep": "var(--paper-deep)",
+        court: "var(--court-orange)",
+        "court-deep": "var(--court-deep)",
+        electric: "var(--electric-cyan)",
+        "electric-deep": "var(--electric-deep)",
+        grape: "var(--grape)",
+        slatey: "var(--slate)",
+      },
+      fontFamily: {
+        display: ["Cabinet Grotesk", "Satoshi", "system-ui", "sans-serif"],
+        body: ["Satoshi", "system-ui", "sans-serif"],
+      },
+      boxShadow: {
+        chunky: "0 4px 0 0 rgba(20,23,43,0.9)",
+        "chunky-cyan": "0 4px 0 0 rgba(20,23,43,0.9)",
       },
     },
   },

@@ -1,0 +1,76 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model PortfolioItem {
+  id          String   @id @default(cuid())
+  title       String
+  description String
+  imageUrl    String?
+  liveUrl     String?
+  category    String   @default("homelab") // "client" | "homelab" | "experiment"
+  techTags    String   @default("") // comma-separated
+  featured    Boolean  @default(false)
+  order       Int      @default(0)
+  createdAt   DateTime @default(now())
+
+  @@index([featured, order])
+}
+
+model SocialLink {
+  id       String @id @default(cuid())
+  platform String
+  url      String
+  order    Int    @default(0)
+
+  @@index([order])
+}
+
+model PricingTier {
+  id          String @id @default(cuid())
+  name        String
+  rangeLow    Int
+  rangeHigh   Int
+  description String
+  order       Int    @default(0)
+
+  @@index([order])
+}
+
+model SiteSettings {
+  id             String  @id @default("singleton")
+  siteTitle      String  @default("JJ Jewell — Jewellcore")
+  tagline        String  @default("Builder. Tinkerer. Rabbit in a snapback.")
+  contactEmail   String  @default("jj@jewellcore.com")
+  ntfyTopic      String  @default("jewellcore-leads")
+  aiProvider     String  @default("ollama") // "ollama" | "openrouter" | "openai-compatible"
+  aiEndpoint     String  @default("http://192.168.1.154:11434/v1")
+  aiModel        String  @default("qwen2.5:7b-instruct")
+  aiApiKey       String  @default("") // only needed for cloud providers
+  aiTemperature  Float   @default(0.7)
+  aiSystemPrompt String  @default("")
+  aboutContent   String  @default("")
+  journeyContent String  @default("")
+}
+
+model Lead {
+  id          String   @id @default(cuid())
+  name        String
+  email       String
+  projectType String?
+  message     String
+  source      String   @default("contact_form") // "contact_form" | "chatbot"
+  status      String   @default("new") // "new" | "contacted" | "closed"
+  createdAt   DateTime @default(now())
+}
+
+model AdminUser {
+  id           String @id @default(cuid())
+  username     String @unique
+  passwordHash String
+}
