@@ -170,7 +170,7 @@ async function main() {
         order: 3,
       },
     ],
-  ]);
+  });
   }
 
   await prisma.siteSettings.upsert({
