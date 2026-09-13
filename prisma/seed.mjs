@@ -9,11 +9,35 @@ Somewhere in there I got deep into self-hosted tech. My own servers, my own netw
 
 That's the whole pitch. I built and ran a real business, then rebuilt those instincts into software and infrastructure. I ship the same way I used to mow a lawn: show up, do it properly, leave it better than I found it.`;
 
-const JOURNEY = `2010 \u2014 Launched Jewellz Lawn Service. Started with a single mower and a handshake. Grew it into a steady book of returning customers over a decade.\n\nMid-2010s \u2014 Took on crew lead roles. Learned to run jobs end-to-end: scope, quote, schedule, delegate, collect. That's project management, just with grass stains.\n\n2021 \u2014 Pivoted hard into tech. Bought a homelab, broke it, fixed it, broke it better. Unraid, Docker, networking, and a mountain of documentation.\n\nNow \u2014 IT & cybersecurity coursework plus cloud foundations, a self-hosted AI rig, and Jewellcore: websites and server admin for small businesses and family.`;
+const JOURNEY = `2010 \u2014 Launched Jewellz Lawn Service. Started with a single mower and a handshake. Grew it into a steady book of returning customers over a decade.
 
-const SYSTEM_PROMPT = `You are Hopper, a friendly white rabbit who talks for JJ Jewell (Jewellcore).\n\nAnswer questions about JJ: background (10+ years running Jewellz Lawn Service, crew leader, homelab builder), skills (web dev: WordPress/Elementor/PHP/Tailwind; systems: Unraid/Docker/Coolify/Cloudflare Tunnels/Tailscale/AdGuard Home; AI: Ollama/Open WebUI/ComfyUI/Cline/OpenCode; hardware: 3D printing/CAD/Bambu Lab), and current certifications in progress (A+, Network+, Security+, Linux+, AZ-900, AWS Cloud Practitioner).\n\nYou know JJ's projects and can talk about them.\n\nIf asked for pricing, give a ballpark range based on the pricing tiers you're given, then ALWAYS say an exact quote comes from the contact form \u2014 never promise a firm price.\n\nBe warm, a little playful, and concise. If you don't know, say so and offer the contact form.`;
+Mid-2010s \u2014 Took on crew lead roles. Learned to run jobs end-to-end: scope, quote, schedule, delegate, collect. That's project management, just with grass stains.
+
+2021 \u2014 Pivoted hard into tech. Bought a homelab, broke it, fixed it, broke it better. Unraid, Docker, networking, and a mountain of documentation.
+
+Now \u2014 IT & cybersecurity coursework plus cloud foundations, a self-hosted AI rig, and Jewellcore: websites and server admin for small businesses and family.`;
+
+const SYSTEM_PROMPT = `You are Hopper, a friendly white rabbit who talks for JJ Jewell (Jewellcore).
+
+Answer questions about JJ: background (10+ years running Jewellz Lawn Service, crew leader, homelab builder), skills (web dev: WordPress/Elementor/PHP/Tailwind; systems: Unraid/Docker/Coolify/Cloudflare Tunnels/Tailscale/AdGuard Home; AI: Ollama/Open WebUI/ComfyUI/Cline/OpenCode; hardware: 3D printing/CAD/Bambu Lab), and current certifications in progress (A+, Network+, Security+, Linux+, AZ-900, AWS Cloud Practitioner).
+
+You know JJ's projects and can talk about them.
+
+If asked for pricing, give a ballpark range based on the pricing tiers you're given, then ALWAYS say an exact quote comes from the contact form \u2014 never promise a firm price.
+
+Be warm, a little playful, and concise. If you don't know, say so and offer the contact form.`;
 
 const prismaItems = [
+  {
+    title: "ForgeBase",
+    description:
+      "An AI app builder \u2014 describe an app and it writes, builds, and ships it to the homelab. This site's AI pipeline in its natural habitat.",
+    category: "homelab",
+    techTags: "Ollama, OpenCode, Docker, Coolify",
+    featured: true,
+    order: 0,
+    liveUrl: "https://forge.jewellcore.com",
+  },
   {
     title: "Arcade Central",
     description:
@@ -22,6 +46,7 @@ const prismaItems = [
     techTags: "React, Tailwind, SQLite",
     featured: true,
     order: 1,
+    liveUrl: "https://arcade.jewellcore.com",
   },
   {
     title: "PickFlick",
@@ -31,6 +56,7 @@ const prismaItems = [
     techTags: "Next.js, Tailwind, SQLite",
     featured: true,
     order: 2,
+    liveUrl: "https://pickflick.jewellcore.com",
   },
   {
     title: "Christmas Wish-List",
@@ -40,7 +66,7 @@ const prismaItems = [
     techTags: "Next.js, Prisma, SQLite, Admin",
     featured: true,
     order: 3,
-    liveUrl: "https://wishlist.jewellcore.com",
+    liveUrl: "https://christmas.jewellcore.com",
   },
   {
     title: "Family Adventures",
@@ -50,6 +76,7 @@ const prismaItems = [
     techTags: "Next.js, Tailwind, SQLite",
     featured: true,
     order: 4,
+    liveUrl: "https://adventures.jewellcore.com",
   },
   {
     title: "Vortex",
@@ -68,6 +95,7 @@ const prismaItems = [
     techTags: "Next.js, Tailwind, SQLite",
     featured: false,
     order: 6,
+    liveUrl: "https://shotgun.jewellcore.com",
   },
   {
     title: "The Golden Ticket",
@@ -77,6 +105,7 @@ const prismaItems = [
     techTags: "Vanilla JS, HTML, CSS",
     featured: false,
     order: 7,
+    liveUrl: "https://goldenticket.jewellcore.com",
   },
   {
     title: "AnythingLLM Study Assistant",
@@ -86,16 +115,7 @@ const prismaItems = [
     techTags: "Ollama, AnythingLLM, Docker",
     featured: false,
     order: 8,
-  },
-  {
-    title: "ForgeBase",
-    description:
-      "An AI app builder \u2014 describe an app and it writes, builds, and ships it to the homelab. This site's AI pipeline in its natural habitat.",
-    category: "homelab",
-    techTags: "Ollama, OpenCode, Docker, Coolify",
-    featured: true,
-    order: 0,
-    liveUrl: "https://forge.jewellcore.com",
+    liveUrl: "https://study.jewellcore.com",
   },
   {
     title: "StudyStation",
@@ -105,6 +125,7 @@ const prismaItems = [
     techTags: "Python, Postgres, Cron, Docker",
     featured: false,
     order: 9,
+    liveUrl: "https://studystation.jewellcore.com",
   },
   {
     title: "LaunchBase",
@@ -114,24 +135,96 @@ const prismaItems = [
     techTags: "Coolify, Cloudflare, Docker, Traefik",
     featured: false,
     order: 10,
+    liveUrl: "https://launch.jewellcore.com",
+  },
+  {
+    title: "Next \u2014 AI News",
+    description:
+      "Hourly AI news digest scraped from 20+ sources, curated with business ideas and model releases. Built to run on the homelab.",
+    category: "experiment",
+    techTags: "Next.js, Python, Cron, SQLite",
+    featured: false,
+    order: 11,
+    liveUrl: "https://next.jewellcore.com",
+  },
+  {
+    title: "Tornado Explorers",
+    description:
+      "An interactive learning site about tornadoes and Tornado Alley \u2014 real-time radar, safety guides, and storm chasing history.",
+    category: "experiment",
+    techTags: "Next.js, Three.js, GSAP, Weather API",
+    featured: false,
+    order: 12,
+    liveUrl: "https://twister.jewellcore.com",
+  },
+  {
+    title: "YMCA Checklist",
+    description:
+      "A simple checklist for a visit to the YMCA \u2014 packing lists, schedules, and quick history of past trips.",
+    category: "client",
+    techTags: "Next.js, Tailwind, SQLite",
+    featured: false,
+    order: 13,
+    liveUrl: "https://ymca.jewellcore.com",
+  },
+  {
+    title: "JewellCore Icon Gallery",
+    description:
+      "Self-hosted dashboard-icons mirror. Browse and copy SVG URLs for 2000+ icon sets. Built for the homelab toolbox.",
+    category: "homelab",
+    techTags: "Next.js, Tailwind, Docker",
+    featured: false,
+    order: 14,
+    liveUrl: "https://icons.jewellcore.com",
+  },
+  {
+    title: "The Grid",
+    description:
+      "Personal interactive portfolio \u2014 a 3D WebGL experience mapping JJ's projects, stack, and contact. Runs on the homelab.",
+    category: "homelab",
+    techTags: "Next.js, React Three Fiber, GSAP, Tailwind",
+    featured: false,
+    order: 15,
+    liveUrl: "https://jj.jewellcore.com",
+  },
+  {
+    title: "JJ World \u2014 Digital Forge",
+    description:
+      "Immersive 3D portfolio showcasing shipped projects from the homelab: Vortex, PickFlick, Christmas Wish-List, Family Adventures, AnythingLLM, and more.",
+    category: "homelab",
+    techTags: "Next.js, React Three Fiber, GSAP, Tailwind",
+    featured: false,
+    order: 16,
+    liveUrl: "https://jjsworld.jewellcore.com",
   },
 ];
 
 async function main() {
-  // Idempotent: only seed reference content when its table is empty, so a
-  // re-deploy never clobbers admin edits. Admin user + settings always upsert.
-  const [itemCount, socialCount, tierCount] = await Promise.all([
-    prisma.portfolioItem.count(),
+  // Reconcile portfolio items by title: upsert on every run so the seed
+  // remains the canonical source of truth and redeploys fix/add cards.
+  for (const item of prismaItems) {
+    const existing = await prisma.portfolioItem.findFirst({
+      where: { title: item.title },
+    });
+
+    if (existing) {
+      await prisma.portfolioItem.update({
+        where: { id: existing.id },
+        data: item,
+      });
+      console.log(`Updated portfolio item: ${item.title}`);
+    } else {
+      await prisma.portfolioItem.create({ data: item });
+      console.log(`Created portfolio item: ${item.title}`);
+    }
+  }
+
+  // Social links, pricing tiers, site settings, admin user: keep idempotent
+  // create-only to avoid clobbering admin edits.
+  const [socialCount, tierCount] = await Promise.all([
     prisma.socialLink.count(),
     prisma.pricingTier.count(),
   ]);
-
-  if (itemCount === 0) {
-    for (const item of prismaItems) {
-      await prisma.portfolioItem.create({ data: item });
-    }
-    console.log(`Seeded ${prismaItems.length} portfolio items.`);
-  }
 
   if (socialCount === 0) {
     await prisma.socialLink.createMany({
@@ -144,33 +237,33 @@ async function main() {
 
   if (tierCount === 0) {
     await prisma.pricingTier.createMany({
-    data: [
-      {
-        name: "Starter website",
-        rangeLow: 650,
-        rangeHigh: 1200,
-        description:
-          "A clean WordPress or static site with hosting setup. Best for a business that needs to look legit, fast.",
-        order: 1,
-      },
-      {
-        name: "Custom web app",
-        rangeLow: 2500,
-        rangeHigh: 8000,
-        description:
-          "A real app with custom logic \u2014 bookings, member areas, admin tools \u2014 built on modern tech and self-hosted.",
-        order: 2,
-      },
-      {
-        name: "Hosting & management retainer",
-        rangeLow: 50,
-        rangeHigh: 250,
-        description:
-          "Monthly hosting, updates, backups, and someone who answers when it breaks. Per month.",
-        order: 3,
-      },
-    ],
-  });
+      data: [
+        {
+          name: "Starter website",
+          rangeLow: 650,
+          rangeHigh: 1200,
+          description:
+            "A clean WordPress or static site with hosting setup. Best for a business that needs to look legit, fast.",
+          order: 1,
+        },
+        {
+          name: "Custom web app",
+          rangeLow: 2500,
+          rangeHigh: 8000,
+          description:
+            "A real app with custom logic \u2014 bookings, member areas, admin tools \u2014 built on modern tech and self-hosted.",
+          order: 2,
+        },
+        {
+          name: "Hosting & management retainer",
+          rangeLow: 50,
+          rangeHigh: 250,
+          description:
+            "Monthly hosting, updates, backups, and someone who answers when it breaks. Per month.",
+          order: 3,
+        },
+      ],
+    });
   }
 
   await prisma.siteSettings.upsert({
@@ -178,7 +271,7 @@ async function main() {
     update: {},
     create: {
       id: "singleton",
-      siteTitle: "JJ Jewell — Jewellcore",
+      siteTitle: "JJ Jewell \u2014 Jewellcore",
       tagline: "Builder, tinkerer, rabbit in a snapback.",
       aboutContent: ABOUT,
       journeyContent: JOURNEY,
@@ -198,7 +291,7 @@ async function main() {
       });
       console.log("Seeded admin user 'jj'.");
     } else {
-      console.warn("ADMIN_PASSWORD not set — no admin user created. Set it and run the seed again.");
+      console.warn("ADMIN_PASSWORD not set \u2014 no admin user created. Set it and run the seed again.");
     }
   } else if (process.env.ADMIN_PASSWORD && process.env.FORCE_ADMIN_RESET === "true") {
     await prisma.adminUser.update({
