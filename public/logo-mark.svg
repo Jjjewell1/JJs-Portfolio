@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" fill="none">
+  <!-- Ears (electric cyan) -->
+  <path d="M103 116 C97 92 89 80 78 68" stroke="#2FD4E0" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <path d="M147 116 C159 92 167 80 178 68" stroke="#2FD4E0" stroke-width="20" stroke-linecap="round" fill="none"/>
+  <!-- Gem body (court‑orange implied by facet lines below) -->
+  <!-- Inner facet lines (ink) -->
+  <path d="M123 94 L104 124" stroke="#14172B" stroke-width="8"/>
+  <path d="M123 94 L148 124" stroke="#14172B" stroke-width="8"/>
+  <path d="M94 150 L162 150" stroke="#14172B" stroke-width="8"/>
+  <path d="M123 194 L123 220" stroke="#14172B" stroke-width="8"/>
+  <path d="M98 220 L158 220" stroke="#14172B" stroke-width="8"/>
+  <!-- Core orb (grape) -->
+  <circle cx="123" cy="174" r="23" fill="#7C5CFC"/>
+  <!-- Highlight on core -->
+  <circle cx="114" cy="169" r="17" fill="#C9B8FF"/>
+  <!-- Tiny sparkle top‑right of gem -->
+  <path d="M188 76 L195 84 L203 87 L195 90 L188 98 L181 90 L173 87 L181 84 Z" fill="#F7F5F2"/>
+  <!-- Orbit ring + satellite (stand‑alone only) -->
+  <ellipse cx="128" cy="194" rx="112" ry="84" fill="none" stroke="#7C5CFC" stroke-width="3"
+    stroke-dasharray="3 16" transform="rotate(-14 128 194)"/>
+  <circle cx="206" cy="124" r="15" fill="#2FD4E0"/>
+  <!-- Outer badge border (optional, can be omitted for pure‑mark version) -->
+  <rect x="2" y="2" width="252" height="252" rx="28" fill="none" stroke="#14172B" stroke-width="6"/>
+</svg>
