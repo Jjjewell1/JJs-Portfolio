@@ -1,7 +1,8 @@
-import { prisma } from "./prisma";
-import type { PortfolioItem, PricingTier, SiteSettings, SocialLink } from "@prisma/client";
+import { getPrisma } from "./prisma";
+import type { PortfolioItem, PricingTier, SiteSettings, SocialLink } from "../src/generated/prisma-node/client";
 
 export async function getSettings(): Promise<SiteSettings | null> {
+  const prisma = await getPrisma();
   return prisma.siteSettings.findUnique({ where: { id: "singleton" } });
 }
 
@@ -18,6 +19,7 @@ export function portfolioOrder<T extends { featured: boolean; order: number }>(i
 }
 
 export async function getPortfolioItems(): Promise<PortfolioItem[]> {
+  const prisma = await getPrisma();
   return portfolioOrder(await prisma.portfolioItem.findMany());
 }
 
@@ -28,10 +30,12 @@ export async function getFeaturedItems(): Promise<PortfolioItem[]> {
 }
 
 export async function getSocialLinks(): Promise<SocialLink[]> {
+  const prisma = await getPrisma();
   return prisma.socialLink.findMany({ orderBy: { order: "asc" } });
 }
 
 export async function getPricingTiers(): Promise<PricingTier[]> {
+  const prisma = await getPrisma();
   return prisma.pricingTier.findMany({ orderBy: { order: "asc" } });
 }
 

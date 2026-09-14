@@ -1,4 +1,4 @@
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import { getSession } from "@/lib/actions";
 import { LoginForm, AdminDashboard } from "@/components/CommandCenter";
 
@@ -14,6 +14,7 @@ export default async function CommandCenterPage() {
     );
   }
 
+  const prisma = await getPrisma();
   const [portfolioItems, socialLinks, pricingTiers, settings, leads] = await Promise.all([
     prisma.portfolioItem.findMany({ orderBy: [{ order: "asc" }, { createdAt: "asc" }] }),
     prisma.socialLink.findMany({ orderBy: { order: "asc" } }),

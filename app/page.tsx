@@ -1,35 +1,37 @@
-import Hero, { Ticker } from "../components/Hero";
-import About from "../components/About";
-import Journey from "../components/Journey";
-import Skills from "../components/Skills";
-import Projects from "../components/Projects";
+import JewellScene from "../components/JewellScene";
+import JewellHero from "../components/JewellHero";
+import JewellPitch from "../components/JewellPitch";
+import JewellArsenal from "../components/JewellArsenal";
+import JewellShips from "../components/JewellShips";
 import ChatSection from "../components/ChatSection";
-import Contact from "../components/Contact";
+import JewellContact from "../components/JewellContact";
 import FooterClient from "../components/Footer";
 import HopperMascot from "../components/HopperMascot";
 import ChatWidget from "../components/ChatWidget";
-import { getSettingsOrThrow, getFeaturedItems, getPortfolioItems, getSocialLinks } from "../lib/data";
+import { getSettingsOrThrow, getPortfolioItems, getSocialLinks } from "../lib/data";
 
-export const revalidate = 60;
+export const dynamic = "force-dynamic";
 
 export default async function Home() {
-  const [settings, featured, items, socials] = await Promise.all([
+  const [settings, items, socials] = await Promise.all([
     getSettingsOrThrow(),
-    getFeaturedItems(),
     getPortfolioItems(),
     getSocialLinks(),
   ]);
+  void settings;
 
   return (
     <>
-      <Hero items={featured} />
-      <Ticker />
-      <About settings={settings} />
-      <Journey settings={settings} />
-      <Skills />
-      <Projects items={items} />
-      <ChatSection />
-      <Contact />
+      <JewellScene shipCount={items.length} skillCount={4} />
+      <main id="jj-track" className="relative">
+        <JewellHero />
+        <div className="h-28 sm:h-44" aria-hidden="true" />
+        <JewellPitch />
+        <JewellArsenal />
+        <JewellShips items={items} />
+        <ChatSection />
+        <JewellContact />
+      </main>
       <FooterClient links={socials.map((s) => ({ platform: s.platform, url: s.url }))} />
       <HopperMascot />
       <ChatWidget />

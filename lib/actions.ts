@@ -3,7 +3,7 @@
 import { cookies } from "next/headers";
 import { revalidatePath } from "next/cache";
 import bcrypt from "bcryptjs";
-import { prisma } from "./prisma";
+import { getPrisma } from "./prisma";
 import { signSession, verifySession, SESSION_COOKIE_NAME } from "./auth";
 import { sendNtfy } from "./ntfy";
 
@@ -12,6 +12,7 @@ import { sendNtfy } from "./ntfy";
 /* ------------------------------------------------------------------ */
 
 export async function login(username: string, password: string) {
+  const prisma = await getPrisma();
   const user = await prisma.adminUser.findUnique({ where: { username } });
   if (!user) return { ok: false, error: "Invalid credentials." };
   const valid = await bcrypt.compare(password, user.passwordHash);
@@ -56,6 +57,7 @@ export async function submitContact(formData: FormData) {
 
   if (!name || !email || !message) return { ok: false, error: "Please fill all required fields." };
 
+  const prisma = await getPrisma();
   await prisma.lead.create({ data: { name, email, projectType, message, source: "contact_form" } });
   await sendNtfy({ name, email, projectType, message, source: "contact_form" });
   return { ok: true };
@@ -70,6 +72,7 @@ export async function captureChatLead(data: { name: string; email: string; messa
   const email = data.email.trim();
   const message = data.message.trim();
   if (!email || !message) return { ok: false, error: "missing data" };
+  const prisma = await getPrisma();
   await prisma.lead.create({
     data: { name: name || "Chat lead", email, message, source: "chatbot" },
   });
@@ -95,6 +98,7 @@ export async function upsertPortfolioItem(formData: FormData) {
     order: Number(formData.get("order") || 0),
   };
 
+  const prisma = await getPrisma();
   if (id) await prisma.portfolioItem.update({ where: { id }, data });
   else await prisma.portfolioItem.create({ data });
   revalidatePath("/");
@@ -105,6 +109,7 @@ export async function deletePortfolioItem(formData: FormData) {
   if (!(await requireAdmin())) return deny();
   const id = String(formData.get("id") || "");
   if (!id) return { ok: false };
+  const prisma = await getPrisma();
   await prisma.portfolioItem.delete({ where: { id } });
   revalidatePath("/");
   return { ok: true };
@@ -122,6 +127,7 @@ export async function upsertSocialLink(formData: FormData) {
     url: String(formData.get("url") || "").trim(),
     order: Number(formData.get("order") || 0),
   };
+  const prisma = await getPrisma();
   if (id) await prisma.socialLink.update({ where: { id }, data });
   else await prisma.socialLink.create({ data });
   revalidatePath("/");
@@ -132,6 +138,7 @@ export async function deleteSocialLink(formData: FormData) {
   if (!(await requireAdmin())) return deny();
   const id = String(formData.get("id") || "");
   if (!id) return { ok: false };
+  const prisma = await getPrisma();
   await prisma.socialLink.delete({ where: { id } });
   revalidatePath("/");
   return { ok: true };
@@ -151,6 +158,7 @@ export async function upsertPricingTier(formData: FormData) {
     description: String(formData.get("description") || "").trim(),
     order: Number(formData.get("order") || 0),
   };
+  const prisma = await getPrisma();
   if (id) await prisma.pricingTier.update({ where: { id }, data });
   else await prisma.pricingTier.create({ data });
   revalidatePath("/");
@@ -161,6 +169,7 @@ export async function deletePricingTier(formData: FormData) {
   if (!(await requireAdmin())) return deny();
   const id = String(formData.get("id") || "");
   if (!id) return { ok: false };
+  const prisma = await getPrisma();
   await prisma.pricingTier.delete({ where: { id } });
   revalidatePath("/");
   return { ok: true };
@@ -186,6 +195,7 @@ export async function updateSiteSettings(formData: FormData) {
     aboutContent: String(formData.get("aboutContent") || ""),
     journeyContent: String(formData.get("journeyContent") || ""),
   };
+  const prisma = await getPrisma();
   await prisma.siteSettings.upsert({ where: { id: "singleton" }, update: s, create: { id: "singleton", ...s } });
   revalidatePath("/");
   return { ok: true };
@@ -200,6 +210,7 @@ export async function updateLeadStatus(formData: FormData) {
   const id = String(formData.get("id") || "");
   const status = String(formData.get("status") || "new").trim();
   if (!id) return { ok: false };
+  const prisma = await getPrisma();
   await prisma.lead.update({ where: { id }, data: { status } });
   return { ok: true };
 }

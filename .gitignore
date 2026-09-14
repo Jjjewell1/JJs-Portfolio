@@ -13,6 +13,10 @@
 /.next/
 /out/
 
+# opennext (cloudflare worker build output — regenerated at build time)
+/.open-next/
+/.wrangler/
+
 # production
 /build
 

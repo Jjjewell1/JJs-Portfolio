@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useRouter } from "next/navigation";
-import type { PortfolioItem, SocialLink, PricingTier, SiteSettings, Lead } from "@prisma/client";
+import type { PortfolioItem, SocialLink, PricingTier, SiteSettings, Lead } from "../src/generated/prisma-node/client";
 import {
   login,
   logout,

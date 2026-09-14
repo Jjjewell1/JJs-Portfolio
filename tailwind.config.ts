@@ -19,6 +19,10 @@ const config: Config = {
         "electric-deep": "var(--electric-deep)",
         grape: "var(--grape)",
         slatey: "var(--slate)",
+        void: "var(--void)",
+        "void-soft": "var(--void-soft)",
+        amber: "var(--amber)",
+        line: "var(--line)",
       },
       fontFamily: {
         display: ["Cabinet Grotesk", "Satoshi", "system-ui", "sans-serif"],

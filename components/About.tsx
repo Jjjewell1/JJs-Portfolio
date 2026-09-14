@@ -1,4 +1,4 @@
-import type { SiteSettings } from "@prisma/client";
+import type { SiteSettings } from "../src/generated/prisma-node/client";
 
 const STATS = [
   { n: "10+", label: "years running a real business" },

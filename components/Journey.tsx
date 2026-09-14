@@ -1,4 +1,4 @@
-import type { SiteSettings } from "@prisma/client";
+import type { SiteSettings } from "../src/generated/prisma-node/client";
 import { paragraphs } from "./About";
 
 interface Step {

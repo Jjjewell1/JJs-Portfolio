@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
-import type { PortfolioItem } from "@prisma/client";
+import type { PortfolioItem } from "../src/generated/prisma-node/client";
 import { CATEGORY_STYLE } from "./HeroCarousel";
 
 const FILTERS = [

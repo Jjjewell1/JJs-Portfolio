@@ -1,4 +1,4 @@
-import type { PortfolioItem } from "@prisma/client";
+import type { PortfolioItem } from "../src/generated/prisma-node/client";
 import HeroCarousel from "./HeroCarousel";
 
 export function Ticker({ chips }: { chips?: string[] }) {

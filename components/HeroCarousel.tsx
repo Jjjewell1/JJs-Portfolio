@@ -2,7 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from "react";
 import gsap from "gsap";
-import type { PortfolioItem } from "@prisma/client";
+import type { PortfolioItem } from "../src/generated/prisma-node/client";
 
 interface Pos {
   x: number;

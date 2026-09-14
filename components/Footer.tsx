@@ -40,14 +40,15 @@ export default function FooterClient({ links }: { links: { platform: string; url
   };
 
   return (
-    <footer className="relative border-t-4 border-court bg-ink py-14 text-paper">
+    <footer className="relative border-t border-white/10 bg-void pb-10 pt-14 text-paper">
+      <div aria-hidden="true" className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-electric/60 to-transparent" />
       <div className="mx-auto max-w-6xl px-5">
         <div className="flex flex-col items-center justify-between gap-10 sm:flex-row sm:items-end">
           <div>
             <p className="font-display text-3xl font-black text-paper">
-              JEWELLCORE<span className="text-court">®</span>
+              JEWELLCORE<span className="text-electric">®</span>
             </p>
-            <p className="mt-1 font-body text-sm text-paper/60">
+            <p className="mt-1 font-body text-sm text-white/50">
               Websites, hosting, and homelab-admin that actually ship.
             </p>
           </div>
@@ -59,7 +60,7 @@ export default function FooterClient({ links }: { links: { platform: string; url
                 href={l.url}
                 target="_blank"
                 rel="noreferrer"
-                className="grid h-11 w-11 place-items-center rounded-full border-2 border-paper/25 font-display text-sm font-extrabold text-paper transition-colors hover:border-electric hover:text-electric"
+                className="glass grid h-11 w-11 place-items-center rounded-full border-white/20 font-display text-sm font-extrabold text-paper transition-colors hover:border-electric hover:text-electric"
                 style={{ letterSpacing: "0.02em" }}
               >
                 {ICONS[l.platform.toLowerCase()] ?? "↗"}
@@ -68,16 +69,16 @@ export default function FooterClient({ links }: { links: { platform: string; url
           </div>
         </div>
 
-        <div className="mt-10 flex items-center justify-between border-t border-paper/10 pt-6">
+        <div className="mt-10 flex items-center justify-between border-t border-white/10 pt-6">
           <button
             onClick={pawTap}
             aria-label="site mark"
-            className="cursor-pointer opacity-40 transition-opacity hover:opacity-80"
+            className="cursor-pointer text-white/30 transition-colors hover:text-electric"
             title="©"
           >
             <PawMark />
           </button>
-          <p className="font-body text-xs text-paper/50">
+          <p className="font-body text-xs text-white/40">
             © {new Date().getFullYear()} JJ Jewell · built + hosted at home
           </p>
         </div>

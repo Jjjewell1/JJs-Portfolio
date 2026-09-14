@@ -1,7 +1,16 @@
-import { PrismaClient } from "@prisma/client";
+import "dotenv/config";
+import { PrismaClient } from "../src/generated/prisma-node/client";
+import { PrismaBetterSqlite3 } from "@prisma/adapter-better-sqlite3";
+import { resolve } from "node:path";
 import bcrypt from "bcryptjs";
 
-const prisma = new PrismaClient();
+const url = typeof process.env.DATABASE_URL === "string" && process.env.DATABASE_URL.startsWith("file:")
+  ? `file:${resolve(process.cwd(), "prisma", process.env.DATABASE_URL.slice("file:".length).replace(/^\/+/, ""))}`
+  : (process.env.DATABASE_URL ?? "file:./prisma/dev.db");
+
+const prisma = new PrismaClient({
+  adapter: new PrismaBetterSqlite3({ url }),
+});
 
 const ABOUT = `I spent over a decade running Jewellz Lawn Service (2010\u20132021), building a real customer base and leading landscape crews day in, day out. I know what it is to shake a hand, quote a job, do the work, and stand behind it \u2014 and I know how hard it is to keep a small business visible online.
 
@@ -275,6 +284,7 @@ async function main() {
       tagline: "Builder, tinkerer, rabbit in a snapback.",
       aboutContent: ABOUT,
       journeyContent: JOURNEY,
+      aiEndpoint: "https://ollama.jewellcore.com",
       aiSystemPrompt: SYSTEM_PROMPT,
     },
   });

@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { prisma } from "@/lib/prisma";
+import { getPrisma } from "@/lib/prisma";
 import { sendNtfy } from "@/lib/ntfy";
 
 export async function POST(req: NextRequest) {
@@ -18,6 +18,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: "email and message required" }, { status: 400 });
   }
 
+  const prisma = await getPrisma();
   await prisma.lead.create({
     data: { name: name || "Chat lead", email, message, source: "chatbot" },
   });

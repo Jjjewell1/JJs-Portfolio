@@ -15,6 +15,10 @@
   --electric-deep: #0fb3c0;
   --grape: #7c5cfc;
   --slate: #6b7280;
+  --void: #04050a;
+  --void-soft: #0a0d18;
+  --amber: #ffb454;
+  --line: rgba(255, 255, 255, 0.12);
 }
 
 * {
@@ -26,8 +30,8 @@ html {
 }
 
 body {
-  background: var(--paper);
-  color: var(--ink);
+  background: var(--void);
+  color: var(--paper);
   font-family: "Satoshi", system-ui, sans-serif;
   font-size: 1.03rem;
   line-height: 1.6;
@@ -70,9 +74,33 @@ p {
       linear-gradient(90deg, rgba(20, 23, 43, 0.06) 1px, transparent 1px);
     background-size: 28px 28px;
   }
+  .bg-grid-void {
+    background-image:
+      linear-gradient(var(--line) 1px, transparent 1px),
+      linear-gradient(90deg, var(--line) 1px, transparent 1px);
+    background-size: 56px 56px;
+  }
   .stamp {
     border: 2px solid currentColor;
     box-shadow: inset 0 0 0 2px var(--paper);
+  }
+  .glass {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.02));
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(14px);
+    -webkit-backdrop-filter: blur(14px);
+  }
+  .glass-deep {
+    background: linear-gradient(180deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    backdrop-filter: blur(22px);
+    -webkit-backdrop-filter: blur(22px);
+  }
+  .text-glow-cyan {
+    text-shadow: 0 0 18px rgba(47, 212, 224, 0.6), 0 0 60px rgba(47, 212, 224, 0.25);
+  }
+  .text-glow-amber {
+    text-shadow: 0 0 18px rgba(255, 180, 84, 0.6), 0 0 60px rgba(255, 180, 84, 0.25);
   }
 }
 

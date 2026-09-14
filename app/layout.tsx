@@ -23,8 +23,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
-      <body className="antialiased">{children}</body>
+    <html lang="en" className="bg-void">
+      <body className="bg-void text-paper antialiased">{children}</body>
     </html>
   );
 }

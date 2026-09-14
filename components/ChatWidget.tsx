@@ -100,16 +100,16 @@ export default function ChatWidget() {
   return (
     <div className="fixed bottom-4 right-4 z-50 flex flex-col items-end gap-3">
       {open && (
-        <div className="flex h-[30rem] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border-2 border-ink bg-paper shadow-2xl">
-          <div className="flex items-center gap-3 bg-ink px-4 py-3">
+        <div className="glass-deep flex h-[30rem] w-[min(22rem,calc(100vw-2rem))] flex-col overflow-hidden rounded-3xl border border-white/15 shadow-2xl">
+          <div className="flex items-center gap-3 border-b border-white/10 bg-white/[0.04] px-4 py-3">
             <div className="h-11 w-8">
               <Hopper pose={busy ? "talking" : "idle"} className="h-11 w-8" />
             </div>
             <div>
               <p className="font-display text-base font-extrabold text-paper">Hopper</p>
-              <p className="font-body text-xs text-paper/70">{busy ? "thinking…" : "ask me anything about JJ"}</p>
+              <p className="font-body text-xs text-white/60">{busy ? "thinking…" : "ask me anything about JJ"}</p>
             </div>
-            <button onClick={() => setOpen(false)} aria-label="Close chat" className="ml-auto grid h-8 w-8 place-items-center rounded-full bg-paper/10 font-body text-paper hover:bg-paper/20">
+            <button onClick={() => setOpen(false)} aria-label="Close chat" className="ml-auto grid h-8 w-8 place-items-center rounded-full bg-white/10 font-body text-paper hover:bg-white/20">
               ✕
             </button>
           </div>
@@ -117,7 +117,7 @@ export default function ChatWidget() {
           <div ref={scrollRef} className="chat-scroll flex-1 space-y-3 overflow-y-auto px-4 py-4">
             {messages.length === 0 && (
               <>
-                <p className="font-body text-sm text-ink/80">
+                <p className="font-body text-sm text-white/75">
                   Hey, I&apos;m Hopper 👋 — I run the bullpen for JJ. Ask about projects, pricing, hosting, or certs.
                 </p>
                 <div className="flex flex-wrap gap-2">
@@ -125,7 +125,7 @@ export default function ChatWidget() {
                     <button
                       key={c}
                       onClick={() => send(c)}
-                      className="rounded-full border-2 border-ink px-3 py-1.5 font-body text-xs font-bold text-ink transition-colors hover:bg-electric"
+                      className="rounded-full border border-white/25 px-3 py-1.5 font-body text-xs font-bold text-white/80 transition-colors hover:border-electric hover:text-electric"
                     >
                       {c}
                     </button>
@@ -138,8 +138,8 @@ export default function ChatWidget() {
                 <div
                   className={`max-w-[85%] rounded-2xl px-3.5 py-2.5 font-body text-sm ${
                     m.role === "user"
-                      ? "rounded-br-sm bg-court text-ink"
-                      : "rounded-bl-sm border-2 border-ink/15 bg-paper-deep text-ink"
+                      ? "rounded-br-sm bg-electric text-void"
+                      : "rounded-bl-sm border border-white/10 bg-white/[0.06] text-white/85"
                   }`}
                 >
                   {m.content}
@@ -148,9 +148,9 @@ export default function ChatWidget() {
             ))}
 
             {capture && !saved && (
-              <div className="rounded-2xl border-2 border-grape bg-grape/10 px-3.5 py-2.5">
-                <p className="font-body text-xs text-ink/80">
-                  Want me to save <strong>{capture.email}</strong> as a lead so JJ can follow up?
+              <div className="rounded-2xl border border-grape/60 bg-grape/15 px-3.5 py-2.5">
+                <p className="font-body text-xs text-white/80">
+                  Want me to save <strong className="text-grape">{capture.email}</strong> as a lead so JJ can follow up?
                 </p>
                 <button onClick={saveLead} className="mt-2 rounded-full bg-grape px-4 py-1.5 font-body text-xs font-bold text-paper">
                   Yes, save it
@@ -160,7 +160,7 @@ export default function ChatWidget() {
 
             {busy && (
               <div className="flex justify-start">
-                <div className="rounded-2xl rounded-bl-sm border-2 border-ink/15 bg-paper-deep px-3.5 py-2.5 font-body text-sm text-ink/60">
+                <div className="rounded-2xl rounded-bl-sm border border-white/10 bg-white/[0.06] px-3.5 py-2.5 font-body text-sm text-white/50">
                   …
                 </div>
               </div>
@@ -173,19 +173,19 @@ export default function ChatWidget() {
               send(input);
               setInput("");
             }}
-            className="flex gap-2 border-t-2 border-ink/10 bg-paper px-3 py-3"
+            className="flex gap-2 border-t border-white/10 bg-white/[0.03] px-3 py-3"
           >
             <input
               value={input}
               onChange={(e) => setInput(e.target.value)}
               placeholder="Type a question…"
-              className="flex-1 rounded-full border-2 border-ink/25 bg-paper px-4 py-2.5 font-body text-sm text-ink outline-none focus:border-electric"
+              className="flex-1 rounded-full border border-white/20 bg-void px-4 py-2.5 font-body text-sm text-paper outline-none placeholder:text-white/30 focus:border-electric"
             />
             <button
               type="submit"
               disabled={busy || !input.trim()}
               aria-label="Send"
-              className="grid h-10 w-10 place-items-center rounded-full bg-ink font-body text-paper transition-transform hover:scale-105 disabled:opacity-40"
+              className="grid h-10 w-10 place-items-center rounded-full bg-electric font-body text-void transition-transform hover:scale-105 disabled:opacity-40"
             >
               ↑
             </button>
@@ -197,7 +197,7 @@ export default function ChatWidget() {
         onClick={() => setOpen((o) => !o)}
         aria-label="Toggle chat with Hopper"
         aria-expanded={open}
-        className="grid h-16 w-16 place-items-center rounded-full border-2 border-ink shadow-chunky transition-transform hover:scale-105"
+        className="grid h-16 w-16 place-items-center rounded-full border-2 border-white/25 shadow-[0_0_28px_-4px_rgba(47,212,224,0.6)] transition-transform hover:scale-105"
         style={{ background: "var(--electric-cyan)" }}
       >
         <Hopper pose={open ? "talking" : "idle"} className="h-12 w-9" />
