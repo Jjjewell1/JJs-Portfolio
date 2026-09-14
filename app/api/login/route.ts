@@ -6,7 +6,7 @@ export async function POST(request: Request) {
   const { username, password } = await request.json();
 
   // Hardcoded admin credentials for personal site
-  if (username !== "admin" || password !== "jj2025") {
+  if (username !== "Jjjewell1" || password !== "Jj4202jj") {
     return new Response(JSON.stringify({ ok: false, error: "Invalid credentials." }), { status: 401, headers: { "Content-Type": "application/json" } });
   }
 
