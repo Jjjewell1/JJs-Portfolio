@@ -15,11 +15,11 @@ interface Pos {
 
 function posFor(i: number, total: number): Pos {
   void total;
-  const x = -14 * i;
-  const y = 14 * i;
-  const scale = Math.max(1 - 0.08 * i, 0.68);
-  const rot = i % 2 === 0 ? -2.4 - i : 2.8 + i;
-  const opacity = Math.max(1 - 0.17 * i, 0.28);
+  const x = -Math.min(38 * i, 140);
+  const y = 10 * i;
+  const scale = Math.max(1 - 0.12 * i, 0.6);
+  const rot = i % 2 === 0 ? -5 - i * 1.6 : 5 + i * 1.6;
+  const opacity = Math.max(1 - 0.15 * i, 0.35);
   return { x, y, scale, rot, opacity, z: 60 - i * 10 };
 }
 
@@ -139,7 +139,7 @@ export default function HeroCarousel({ items }: { items: PortfolioItem[] }) {
           ←
         </button>
         <div className="px-2 font-display text-sm font-extrabold tracking-tight text-paper/70">
-          {itemsByOrder.length > 0 ? 1 : 0} / {items.length}
+          {order.length > 0 ? items.findIndex((it) => it.id === order[0]) + 1 : 0} / {items.length}
         </div>
         <button
           onClick={() => shift(1)}
