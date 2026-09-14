@@ -82,8 +82,8 @@ export default function HeroCarousel({ items }: { items: PortfolioItem[] }) {
   const shift = (dir: 1 | -1) => {
     setOrder((cur) => {
       const next = [...cur];
-      if (dir === 1) next.unshift(next.pop()!);
-      else next.push(next.shift()!);
+      if (dir === 1) next.push(next.shift()!); // next: second card becomes front
+      else next.unshift(next.pop()!);          // prev: last card becomes front
       return next;
     });
   };
