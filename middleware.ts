@@ -16,5 +16,5 @@ export async function middleware(req: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/command-center/:path+"],
+  matcher: ["/command-center", "/command-center/:path+"],
 };
