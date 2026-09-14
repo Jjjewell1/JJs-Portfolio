@@ -95,6 +95,7 @@ const prismaItems = [
     techTags: "Docker, Traefik, Cloudflare Tunnel",
     featured: false,
     order: 5,
+    liveUrl: "https://vortex.jewellcore.com",
   },
   {
     title: "Shotgun Seat Squad",
