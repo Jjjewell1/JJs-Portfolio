@@ -5,7 +5,7 @@ import bcrypt from "bcryptjs";
 
 function resolveDbUrl(url: string): string {
   if (!url.startsWith("file:")) return url;
-  const rest = url.slice("file:");
+  const rest = url.slice(5);
   if (rest === ":memory:" || rest === "") return url;
   if (rest.startsWith("/")) return url;
   return url;

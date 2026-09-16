@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import InteractiveCursor from "../components/InteractiveCursor";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://jjs.jewellcore.com"),
@@ -24,7 +25,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="bg-void">
-      <body className="bg-void text-paper antialiased">{children}</body>
+      <body className="bg-void text-paper antialiased">
+        <InteractiveCursor />
+        {children}
+      </body>
     </html>
   );
 }

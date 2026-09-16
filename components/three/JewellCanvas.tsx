@@ -5,6 +5,7 @@ import * as THREE from "three/webgpu";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
+import { FilmPass } from "three/addons/postprocessing/FilmPass.js";
 import { OutputPass } from "three/addons/postprocessing/OutputPass.js";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -227,6 +228,14 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
       heart.position.copy(coreMesh.position);
       core.add(heart);
 
+      const knotGeo = new THREE.TorusKnotGeometry(0.45, 0.015, 128, 16);
+      geometries.push(knotGeo);
+      const knotMat = new THREE.MeshBasicMaterial({ color: CYAN, transparent: true, opacity: 0.4, wireframe: true });
+      materials.push(knotMat);
+      const knot = new THREE.Mesh(knotGeo, knotMat);
+      knot.position.copy(coreMesh.position);
+      core.add(knot);
+
       // amber orbit ring around the core
       const ringGeo = new THREE.TorusGeometry(1.05, 0.035, 16, 64);
       geometries.push(ringGeo);
@@ -391,6 +400,24 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
       }
 
       // ============================================================================
+      // FLOOR: digital grid
+      // ============================================================================
+      const gridGeo = new THREE.PlaneGeometry(100, 100, 50, 50);
+      geometries.push(gridGeo);
+      const gridMat = new THREE.MeshBasicMaterial({
+        color: CYAN,
+        transparent: true,
+        opacity: 0.08,
+        wireframe: true,
+        blending: THREE.AdditiveBlending,
+      });
+      materials.push(gridMat);
+      const grid = new THREE.Mesh(gridGeo, gridMat);
+      grid.rotation.x = -Math.PI / 2;
+      grid.position.y = -2.5;
+      scene.add(grid);
+
+      // ============================================================================
       // EMBERS: slow-drifting additive dust for atmosphere
       // ============================================================================
       const EMBER_COUNT = 260;
@@ -422,9 +449,11 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
       composer.addPass(new RenderPass(scene, camera));
       const bloomPass = new UnrealBloomPass(new THREE.Vector2(width(), height()), 0.85, 0.6, 0.85);
       composer.addPass(bloomPass);
+      const filmPass = new FilmPass(0.15, false);
+      composer.addPass(filmPass);
       const outputPass = new OutputPass();
       composer.addPass(outputPass);
-      disposables.push(bloomPass, outputPass, composer);
+      disposables.push(bloomPass, filmPass, outputPass, composer);
 
       // ---- camera path sampling ------------------------------------------------
       const tmpA = new THREE.Vector3();
@@ -527,6 +556,11 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
 
         ring.rotation.z += 0.4 * t;
         heart.scale.setScalar(1 + 0.08 * Math.sin(now * 2));
+        knot.rotation.y -= 0.6 * t;
+        knot.rotation.z += 0.3 * t;
+        grid.rotation.z += 0.02 * t;
+        gridMat.opacity = 0.08 + 0.04 * Math.sin(now * 0.5);
+
         ledMats.forEach((m, idx) => {
           m.emissiveIntensity = 2.2 + 1.4 * Math.sin(now * 3 + idx * 1.3);
         });
@@ -540,6 +574,9 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
         markerMats.forEach((m, idx) => {
           m.opacity = 0.6 + 0.35 * Math.sin(now * 2 + idx * 0.8);
         });
+
+        // subtle pulse on grid
+        gridMat.opacity = 0.08 + 0.04 * Math.sin(now * 0.8);
 
         // embers drift upward, wrapping
         const posAttr = emberGeo.attributes.position as THREE.BufferAttribute;
