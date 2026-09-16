@@ -69,14 +69,14 @@ export default function JewellPitch() {
             <div
               key={s.label}
               data-reveal
-              className={`glass relative overflow-hidden rounded-2xl p-7 ${i === 2 ? "glass-deep" : ""}`}
+              className={`glass-sheen relative overflow-hidden rounded-2xl p-7 ${i === 2 ? "glass-deep" : "glass"}`}
             >
               <span aria-hidden="true" className="pointer-events-none absolute -right-4 -top-6 font-display text-8xl font-black text-white/[0.03]">
                 {String(i + 1).padStart(2, "0")}
               </span>
               <p className={`font-display text-5xl font-black tracking-tight ${s.accent}`}>{s.value}</p>
               <p className="mt-4 font-mono text-[11px] font-semibold tracking-[0.22em] text-white/70">{s.label}</p>
-              <p className="mt-1 font-body text-sm text-white/45">{s.sub}</p>
+              <p className="mt-1 font-body text-sm text-white/60">{s.sub}</p>
             </div>
           ))}
         </div>

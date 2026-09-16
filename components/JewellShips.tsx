@@ -72,7 +72,7 @@ export default function JewellShips({ items }: { items: PortfolioItem[] }) {
             <article
               key={item.id}
               data-card
-              className="glass group relative flex flex-col overflow-hidden rounded-2xl p-6 transition-colors hover:border-white/30"
+              className="glass glass-sheen group relative flex flex-col overflow-hidden rounded-2xl p-6 transition-colors hover:border-white/30"
             >
               <span
                 aria-hidden="true"

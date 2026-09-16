@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import * as THREE from "three/webgpu";
+import * as THREE from "three";
 import { EffectComposer } from "three/addons/postprocessing/EffectComposer.js";
 import { RenderPass } from "three/addons/postprocessing/RenderPass.js";
 import { UnrealBloomPass } from "three/addons/postprocessing/UnrealBloomPass.js";
@@ -17,9 +17,9 @@ interface JewellCanvasProps {
 }
 
 /**
- * Full-page WebGPU background — a rotating server-blade / AI-core that JJ reads as
- * "the homelab, rendered." WebGPURenderer falls back to WebGL2 automatically, so the
- * same scene renders everywhere. GSAP ScrollTrigger scrubs a 0..1 timeline over the
+ * Full-page WebGL background — a rotating server-blade / AI-core that JJ reads as
+ * "the homelab, rendered." WebGLRenderer + the classic EffectComposer bloom pipeline
+ * render everywhere. GSAP ScrollTrigger scrubs a 0..1 timeline over the
  * whole page and the camera sweeps along keyframes; mouse parallax nudges the core.
  * Everything is disposed on unmount.
  */
@@ -64,8 +64,12 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
     const mount = mountRef.current!;
     if (!mount) return;
 
+    // React 18 StrictMode mounts effects twice in dev; the first teardown flips
+    // hiddenRef, so reset it here or the render loop stays permanently disabled.
+    hiddenRef.current = false;
+
     let disposed = false;
-    let renderer: THREE.WebGPURenderer;
+    let renderer: THREE.WebGLRenderer;
     let composer: EffectComposer;
     let scene: THREE.Scene;
     let camera: THREE.PerspectiveCamera;
@@ -92,11 +96,11 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
 
     async function boot() {
       try {
-        renderer = new THREE.WebGPURenderer({
+        renderer = new THREE.WebGLRenderer({
           antialias: true,
           powerPreference: "high-performance",
+          alpha: false,
         });
-        await renderer.init();
       } catch (err) {
         console.error("[jewellcanvas] renderer init failed", err);
         hiddenRef.current = true;
@@ -106,6 +110,7 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
         renderer.dispose();
         return;
       }
+      renderer.outputColorSpace = THREE.SRGBColorSpace;
 
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
       renderer.setSize(width(), height(), false);
@@ -417,7 +422,7 @@ export default function JewellCanvas({ shipCount, skillCount }: JewellCanvasProp
       // ============================================================================
       // POST-PROCESSING: bloom + output
       // ============================================================================
-      composer = new EffectComposer(renderer as unknown as import("three").WebGLRenderer);
+      composer = new EffectComposer(renderer);
       composer.setSize(width(), height());
       composer.addPass(new RenderPass(scene, camera));
       const bloomPass = new UnrealBloomPass(new THREE.Vector2(width(), height()), 0.85, 0.6, 0.85);

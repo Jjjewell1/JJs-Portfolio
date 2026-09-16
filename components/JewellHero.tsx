@@ -54,7 +54,13 @@ export default function JewellHero() {
       {/* faint grid that fades in behind the HUD */}
       <div aria-hidden="true" data-jj-grid className="pointer-events-none absolute inset-0 bg-grid-void opacity-80 [mask-image:radial-gradient(70%_70%_at_50%_40%,black,transparent)]" />
 
-      <div className="relative mx-auto w-full max-w-6xl px-5 py-28 lg:py-0">
+      {/* left-weighted scrim so copy stays legible over the bright 3D core */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 [background:linear-gradient(100deg,rgba(2,3,8,0.92)_0%,rgba(2,3,8,0.6)_28%,rgba(2,3,8,0.12)_52%,transparent_70%)]"
+      />
+
+      <div className="relative z-10 mx-auto w-full max-w-6xl px-5 py-28 lg:py-0">
         <div className="max-w-2xl">
           <div data-reveal className="glass flex w-fit items-center gap-2 rounded-full px-4 py-1.5">
             <span aria-hidden="true" className="inline-block h-2 w-2 animate-pulse rounded-full bg-electric" />
@@ -71,7 +77,7 @@ export default function JewellHero() {
             </span>
           </h1>
 
-          <p data-reveal className="mt-7 max-w-md font-body text-lg text-white/70">
+          <p data-reveal className="mt-7 max-w-md font-body text-lg text-white/80 [text-shadow:0_1px_20px_rgba(2,3,8,0.9)]">
             I&apos;m <strong className="font-bold text-paper">JJ Jewell</strong> — built by hand, hosted at home,
             maintained for real. A decade running my own business, now running my own servers, sites, and AI.
           </p>
@@ -95,7 +101,7 @@ export default function JewellHero() {
           <div data-reveal className="mt-12 flex flex-wrap gap-3 font-mono text-[11px] tracking-widest">
             {[
               ["UPTIME", "SELF-HOSTED"],
-              ["STACK", "WEBGPU / NEXT.JS"],
+              ["STACK", "THREE.JS / NEXT.JS"],
               ["BUILT BY", "HAND. OBSESSIVELY."],
             ].map(([k, v]) => (
               <span key={k} className="glass rounded-lg px-3 py-2 text-white/60">
