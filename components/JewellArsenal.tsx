@@ -93,7 +93,7 @@ export default function JewellArsenal() {
             <article
               key={g.title}
               data-card
-              className="glass group relative flex flex-col rounded-2xl p-6 transition-colors hover:border-white/30"
+              className="glass-deep glass-sheen group relative flex flex-col rounded-2xl p-6 transition-colors hover:border-white/30"
               style={{ transformStyle: "preserve-3d" }}
             >
               <div className="flex items-center justify-between">
@@ -105,7 +105,7 @@ export default function JewellArsenal() {
                 </span>
               </div>
               <h3 className={`mt-5 font-display text-2xl font-extrabold ${g.accent}`}>{g.title}</h3>
-              <p className="mt-2 flex-1 font-body text-sm text-white/55">{g.blurb}</p>
+              <p className="mt-2 flex-1 font-body text-sm text-white/70">{g.blurb}</p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {g.items.map((item) => (
                   <span

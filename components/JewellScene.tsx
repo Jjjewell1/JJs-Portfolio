@@ -8,7 +8,7 @@ const JewellCanvas = dynamic(() => import("./three/JewellCanvas"), {
 });
 
 /**
- * Fixed full-screen layer behind all content: the WebGPU canvas plus a soft
+ * Fixed full-screen layer behind all content: the WebGL canvas plus a soft
  * cinematic vignette. Pointer-events are off so the HUD scrolls on top.
  */
 export default function JewellScene({
