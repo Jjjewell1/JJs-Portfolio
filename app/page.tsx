@@ -6,7 +6,6 @@ import JewellShips from "../components/JewellShips";
 import ChatSection from "../components/ChatSection";
 import JewellContact from "../components/JewellContact";
 import FooterClient from "../components/Footer";
-import HopperMascot from "../components/HopperMascot";
 import ChatWidget from "../components/ChatWidget";
 import { getSettingsOrThrow, getPortfolioItems, getSocialLinks } from "../lib/data";
 
@@ -33,7 +32,6 @@ export default async function Home() {
         <JewellContact />
       </main>
       <FooterClient links={socials.map((s) => ({ platform: s.platform, url: s.url }))} />
-      <HopperMascot />
       <ChatWidget />
     </>
   );
