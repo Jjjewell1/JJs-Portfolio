@@ -129,6 +129,26 @@ p {
   }
 }
 
+/* ---- living hero canvas ---- */
+.hero-light {
+  background:
+    radial-gradient(34rem 34rem at var(--hero-x, 70% ) var(--hero-y, 35%), rgba(47, 212, 224, .13), transparent 65%),
+    radial-gradient(28rem 28rem at 78% 58%, rgba(124, 92, 252, .16), transparent 70%),
+    radial-gradient(22rem 22rem at 42% 86%, rgba(255, 180, 84, .08), transparent 70%);
+  mix-blend-mode: screen;
+  opacity: .9;
+  transition: background-position .6s ease;
+}
+.hero-panel {
+  animation: hero-float 9s ease-in-out infinite;
+  transform-origin: center;
+}
+.hero-panel-one { animation-delay: -2s; }
+@keyframes hero-float {
+  0%, 100% { margin-top: 0; }
+  50% { margin-top: -12px; }
+}
+
 /* ---- ticker ---- */
 @keyframes marquee {
   from { transform: translateX(0); }
@@ -151,4 +171,5 @@ p {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+  .hero-panel { animation: none; }
 }

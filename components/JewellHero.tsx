@@ -31,6 +31,8 @@ export default function JewellHero() {
     const onMove = (e: PointerEvent) => {
       const nx = (e.clientX / window.innerWidth) * 2 - 1;
       const ny = (e.clientY / window.innerHeight) * 2 - 1;
+      el.style.setProperty("--hero-x", `${e.clientX}px`);
+      el.style.setProperty("--hero-y", `${e.clientY}px`);
       per.forEach(({ f, depth }, i) => {
         xTo(nx * depth * (i % 2 === 0 ? 1 : -1));
         gsap.to(f, { y: -ny * depth * 0.4, duration: 0.6, ease: "power2.out", overwrite: "auto" });
@@ -53,6 +55,22 @@ export default function JewellHero() {
     >
       {/* faint grid that fades in behind the HUD */}
       <div aria-hidden="true" data-jj-grid className="pointer-events-none absolute inset-0 bg-grid-void opacity-80 [mask-image:radial-gradient(70%_70%_at_50%_40%,black,transparent)]" />
+
+      {/* A soft, cursor-led light field gives the hero the same alive, infinite-canvas feel as Onlook. */}
+      <div aria-hidden="true" className="hero-light pointer-events-none absolute inset-0" />
+
+      <div aria-hidden="true" className="pointer-events-none absolute inset-0 hidden overflow-hidden lg:block">
+        <div data-parallax="18" className="hero-panel hero-panel-one glass-deep absolute right-[7%] top-[16%] w-72 rotate-[6deg] rounded-2xl p-4">
+          <div className="mb-4 flex items-center justify-between font-mono text-[9px] uppercase tracking-[0.22em] text-white/40"><span>live / home-server</span><span className="text-electric">● online</span></div>
+          <div className="space-y-2 font-mono text-[11px] text-white/65"><div><span className="text-electric">01</span> const <span className="text-amber">site</span> = await build()</div><div><span className="text-electric">02</span> deploy --self-hosted</div><div><span className="text-electric">03</span> uptime: <span className="text-electric">99.98%</span></div></div>
+          <div className="mt-5 h-16 rounded-lg bg-[linear-gradient(135deg,rgba(47,212,224,.22),rgba(124,92,252,.18))] p-3"><div className="h-full rounded border border-white/10 bg-black/10"><div className="mt-4 ml-3 h-1.5 w-20 rounded-full bg-electric/60" /></div></div>
+        </div>
+        <div data-parallax="25" className="hero-panel glass-deep absolute bottom-[16%] right-[22%] w-56 -rotate-[7deg] rounded-2xl p-4">
+          <div className="flex items-center gap-2 font-mono text-[10px] tracking-[0.2em] text-white/50"><span className="h-2 w-2 rounded-full bg-amber shadow-[0_0_12px_var(--amber)]" /> NODE 01 / HOME</div>
+          <div className="mt-4 font-display text-2xl font-black text-paper">Made with intent.</div>
+          <div className="mt-2 font-mono text-[10px] text-white/40">No hand-offs. No black boxes.</div>
+        </div>
+      </div>
 
       {/* left-weighted scrim so copy stays legible over the bright 3D core */}
       <div
