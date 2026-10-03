@@ -1,6 +1,8 @@
 import JewellScene from "../components/JewellScene";
 import JewellHero from "../components/JewellHero";
 import JewellPitch from "../components/JewellPitch";
+import JewellWhy from "../components/JewellWhy";
+import JewellServices from "../components/JewellServices";
 import JewellArsenal from "../components/JewellArsenal";
 import JewellShips from "../components/JewellShips";
 import ChatSection from "../components/ChatSection";
@@ -26,6 +28,8 @@ export default async function Home() {
         <JewellHero />
         <div className="h-28 sm:h-44" aria-hidden="true" />
         <JewellPitch />
+        <JewellWhy />
+        <JewellServices compact />
         <JewellArsenal />
         <JewellShips items={items} />
         <ChatSection />

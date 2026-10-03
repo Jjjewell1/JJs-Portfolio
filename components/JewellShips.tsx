@@ -13,10 +13,10 @@ const FILTERS = [
 
 type FilterKey = (typeof FILTERS)[number]["key"];
 
-const CATEGORY_STYLE: Record<string, string> = {
-  client: "text-electric border-electric/60",
-  homelab: "text-amber border-amber/60",
-  experiment: "text-grape border-grape/60",
+const COVER_STYLE: Record<string, string> = {
+  client: "from-electric/80 via-cyan-400/20 to-ink",
+  homelab: "from-amber/80 via-orange-500/20 to-ink",
+  experiment: "from-grape/80 via-fuchsia-500/20 to-ink",
 };
 
 export default function JewellShips({ items }: { items: PortfolioItem[] }) {
@@ -41,6 +41,9 @@ export default function JewellShips({ items }: { items: PortfolioItem[] }) {
       <div className="mx-auto max-w-6xl px-5">
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
+            <p className="mb-4 font-mono text-[11px] font-bold uppercase tracking-[0.28em] text-electric/80">
+              Selected work / 2021—now
+            </p>
             <h2 className="font-display text-[clamp(2rem,4.5vw,3.4rem)] font-black tracking-[-0.02em] text-paper">
               Ships I&apos;ve launched<span className="text-amber">.</span>
             </h2>
@@ -72,51 +75,46 @@ export default function JewellShips({ items }: { items: PortfolioItem[] }) {
             <article
               key={item.id}
               data-card
-              className="glass glass-sheen group relative flex flex-col overflow-hidden rounded-2xl p-6 transition-colors hover:border-white/30"
+              className={`glass glass-sheen group relative flex flex-col overflow-hidden rounded-2xl transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:shadow-[0_22px_60px_-28px_rgba(47,212,224,0.7)] ${
+                i === 0 ? "md:col-span-2 xl:col-span-2" : ""
+              }`}
             >
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute -right-3 -top-7 font-display text-7xl font-black text-white/[0.04] transition-colors group-hover:text-electric/10"
-              >
-                {String(i + 1).padStart(2, "0")}
-              </span>
-
-              <div className="flex items-center justify-between gap-3">
-                <span
-                  className={`rounded-full border px-3 py-1 font-body text-[11px] font-bold uppercase tracking-widest ${
-                    CATEGORY_STYLE[item.category] ?? "text-white/60 border-white/25"
-                  }`}
-                >
-                  {item.category}
-                </span>
-                <span aria-hidden="true" className="font-display text-xl font-black text-electric/60 transition-transform group-hover:rotate-12">
-                  ✦
-                </span>
+              <div className={`relative min-h-40 overflow-hidden border-b border-white/10 bg-gradient-to-br ${COVER_STYLE[item.category] ?? "from-paper/40 to-ink"} ${i === 0 ? "md:min-h-56" : ""}`}>
+                {item.imageUrl ? (
+                  // eslint-disable-next-line @next/next/no-img-element
+                  <img src={item.imageUrl} alt="" className="absolute inset-0 h-full w-full object-cover opacity-80 transition-transform duration-700 group-hover:scale-105" />
+                ) : (
+                  <div aria-hidden="true" className="absolute inset-0 bg-[linear-gradient(135deg,transparent_0_45%,rgba(255,255,255,.16)_45%_46%,transparent_46%_100%)] opacity-70" />
+                )}
+                <div className="absolute inset-0 bg-gradient-to-t from-ink/90 via-ink/15 to-transparent" />
+                <div className="absolute inset-x-6 bottom-5 flex items-end justify-between gap-4">
+                  <span className="font-mono text-[11px] font-bold uppercase tracking-[0.22em] text-white/75">
+                    {String(i + 1).padStart(2, "0")} / {item.category}
+                  </span>
+                  <span aria-hidden="true" className="font-display text-4xl font-black text-white/70 transition-transform group-hover:rotate-12 group-hover:scale-110">✦</span>
+                </div>
               </div>
 
-              <h3 className="mt-4 font-display text-2xl font-extrabold text-paper">{item.title}</h3>
-              <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-white/60">{item.description}</p>
+              <div className="flex flex-1 flex-col p-6">
+                <h3 className={`font-display font-extrabold text-paper ${i === 0 ? "text-3xl" : "text-2xl"}`}>{item.title}</h3>
+                <p className="mt-2 flex-1 font-body text-sm leading-relaxed text-white/60">{item.description}</p>
 
-              {item.techTags && (
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {item.techTags.split(",").map((t) => t.trim()).filter(Boolean).map((t) => (
-                    <span key={t} className="font-mono text-[11px] text-white/40">
-                      #{t}
-                    </span>
-                  ))}
-                </div>
-              )}
+                {item.techTags && (
+                  <div className="mt-5 flex flex-wrap gap-1.5">
+                    {item.techTags.split(",").map((t) => t.trim()).filter(Boolean).map((t) => (
+                      <span key={t} className="rounded-full border border-white/10 px-2.5 py-1 font-mono text-[11px] text-white/50">
+                        {t}
+                      </span>
+                    ))}
+                  </div>
+                )}
 
-              {item.liveUrl && (
-                <a
-                  href={item.liveUrl}
-                  target="_blank"
-                  rel="noreferrer"
-                  className="mt-5 inline-flex w-fit items-center gap-1 font-body text-sm font-bold text-electric hover:text-amber"
-                >
-                  Visit live site →
-                </a>
-              )}
+                {item.liveUrl && (
+                  <a href={item.liveUrl} target="_blank" rel="noreferrer" className="mt-6 inline-flex w-fit rounded-full border border-electric/40 px-4 py-2 font-body text-sm font-bold text-electric transition-colors hover:bg-electric hover:text-void">
+                    Open project
+                  </a>
+                )}
+              </div>
             </article>
           ))}
         </div>

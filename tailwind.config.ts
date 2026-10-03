@@ -6,6 +6,13 @@ const config: Config = {
     "./components/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  safelist: [
+    "text-electric", "text-amber", "text-grape", "text-paper",
+    "bg-electric", "bg-amber", "bg-grape", "bg-paper",
+    "bg-electric/10", "bg-amber/10", "bg-grape/10", "bg-paper/10",
+    "bg-electric/70", "bg-amber/70", "bg-grape/70", "bg-paper/70",
+    "border-electric/30", "border-amber/30", "border-grape/30", "border-paper/30",
+  ],
   theme: {
     extend: {
       colors: {
